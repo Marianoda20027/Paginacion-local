@@ -23,25 +23,21 @@ namespace PaginationApp.Api.Controllers
             _logger = logger;
         }
 
-        /* Endpoint principal para búsqueda paginada con filtros opcionales
-           - Todos los parámetros son opcionales con valores por defecto
-           - Soporta filtrado por múltiples criterios
-           - Incluye validación automática de parámetros */
+        // Endpoint principal para búsqueda paginada con filtros opcionales     
         [HttpGet]
         public async Task<IActionResult> GetPaginatedParts(
-            [FromQuery] int pageNumber = 1,      // Número de página (default 1)
-            [FromQuery] int pageSize = 10,       // Items por página (default 10)
-            /* Filtros de búsqueda opcionales */
+            [FromQuery] int pageNumber = 1,      
+            [FromQuery] int pageSize = 10,       
             [FromQuery] string? category = null,
             [FromQuery] string? partCode = null,
             [FromQuery] string? technicalSpecs = null,
-            [FromQuery] int? minStockQuantity = null,   // Filtros de rango para stock
+            [FromQuery] int? minStockQuantity = null,  
             [FromQuery] int? maxStockQuantity = null,
-            [FromQuery] decimal? minUnitWeight = null,  // Filtros de rango para peso
+            [FromQuery] decimal? minUnitWeight = null,  
             [FromQuery] decimal? maxUnitWeight = null,
-            [FromQuery] string? productionDateStart = null,  // Rango fechas de producción
+            [FromQuery] string? productionDateStart = null,  
             [FromQuery] string? productionDateEnd = null,
-            [FromQuery] string? lastModifiedStart = null,   // Rango fechas de modificación
+            [FromQuery] string? lastModifiedStart = null,   
             [FromQuery] string? lastModifiedEnd = null)
         {
             try

@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios';
 
 // API Real URL
 const apiInstance: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:8080', // Cambiar al backend real cuando sea necesario
+  baseURL: 'http://localhost:5000', // Cambiar al backend real cuando sea necesario
 });
 
 

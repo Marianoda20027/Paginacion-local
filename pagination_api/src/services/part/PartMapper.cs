@@ -6,14 +6,12 @@ using PaginationApp.Services.Parts.Contracts;
 
 namespace PaginationApp.Services.Parts
 {
-    /// <summary>
-    /// Mapeador de respuestas de Elasticsearch a objetos PartDto paginados
-    /// </summary>
+    //Mapeador de respuestas de Elasticsearch a objetos PartDto paginados
+  
     public class PartMapper : IPartMapper
     {
-        /// <summary>
-        /// Convierte la respuesta JSON de Elasticsearch en un resultado paginado
-        /// </summary>
+        // Convierte la respuesta JSON de Elasticsearch en un resultado paginado
+      
         public PaginatedResult<PartDto> MapToPaginatedResult(string elasticResponse, int pageNumber, int pageSize)
         {
             using var jsonDoc = JsonDocument.Parse(elasticResponse);

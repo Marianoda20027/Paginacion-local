@@ -6,17 +6,12 @@ using PaginationApp.Services.Parts.Contracts;
 
 namespace PaginationApp.Services.Parts
 {
-    /// <summary>
-    /// Implementación concreta del servicio de búsqueda usando Elasticsearch
-    /// </summary>
+    // Servicio de búsqueda de partes usando Elasticsearch como backend
     public class ElasticPartSearchService : IPartSearchService
     {
-        private readonly IElasticSearchService _searchService; // Servicio de bajo nivel para Elasticsearch
-        private readonly IPartMapper _mapper; // Mapeador de respuestas de Elasticsearch
+        private readonly IElasticSearchService _searchService; // Servicio de búsqueda en Elasticsearch
+        private readonly IPartMapper _mapper; // Encargado de mapear la respuesta a DTOs paginados
 
-        /// <summary>
-        /// Constructor con inyección de dependencias
-        /// </summary>
         public ElasticPartSearchService(
             IElasticSearchService searchService,
             IPartMapper mapper)
@@ -25,25 +20,19 @@ namespace PaginationApp.Services.Parts
             _mapper = mapper;
         }
 
-        /// <summary>
-        /// Busca partes paginadas con filtros opcionales
-        /// </summary>
-        /// <param name="pageNumber">Número de página (1-based)</param>
-        /// <param name="pageSize">Cantidad de ítems por página</param>
-        /// <param name="filters">Diccionario de filtros aplicables</param>
-        /// <returns>Resultado paginado con objetos PartDto</returns>
+        // Ejecuta una búsqueda paginada de partes con filtros opcionales
         public async Task<PaginatedResult<PartDto>> SearchPartsAsync(
-            int pageNumber, 
-            int pageSize, 
+            int pageNumber,
+            int pageSize,
             Dictionary<string, string>? filters = null)
         {
-            // 1. Ejecutar búsqueda en Elasticsearch
+            // Ejecutar la búsqueda con los filtros proporcionados
             var response = await _searchService.SearchPartsAsync(
-                filters ?? new Dictionary<string, string>(), // Filtros o diccionario vacío
-                pageNumber, 
+                filters ?? new Dictionary<string, string>(), 
+                pageNumber,
                 pageSize);
-                
-            // 2. Mapear respuesta de Elasticsearch a DTOs paginados
+
+            // Mapear los resultados a un formato paginado de DTOs
             return _mapper.MapToPaginatedResult(response, pageNumber, pageSize);
         }
     }
